@@ -1,95 +1,28 @@
 import { Request, Response } from 'express';
-import { UserService } from '../services/user.service';
-import { CreateUserDto, UpdateUserDto, LoginDto } from '../types/user.types';
-import { AppError } from '../utils/appError';
 
 export class UserController {
-  private userService: UserService;
-
-  constructor() {
-    this.userService = new UserService();
+  async register(req: Request, res: Response) {
+    // TODO: Implement registration logic
+    res.status(201).json({ message: 'Register endpoint' });
   }
 
-  register = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const userData: CreateUserDto = req.body;
-      const result = await this.userService.register(userData);
-      res.status(201).json(result);
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  };
+  async login(req: Request, res: Response) {
+    // TODO: Implement login logic
+    res.status(200).json({ message: 'Login endpoint' });
+  }
 
-  login = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const loginData: LoginDto = req.body;
-      const result = await this.userService.login(loginData);
-      res.status(200).json(result);
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  };
+  async getProfile(req: Request, res: Response) {
+    // TODO: Implement get profile logic
+    res.status(200).json({ message: 'Get profile endpoint' });
+  }
 
-  getProfile = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) {
-        throw new AppError('Not authenticated', 401);
-      }
+  async updateProfile(req: Request, res: Response) {
+    // TODO: Implement update profile logic
+    res.status(200).json({ message: 'Update profile endpoint' });
+  }
 
-      const profile = await this.userService.getProfile(userId);
-      res.status(200).json(profile);
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  };
-
-  updateProfile = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) {
-        throw new AppError('Not authenticated', 401);
-      }
-
-      const updateData: UpdateUserDto = req.body;
-      const updatedProfile = await this.userService.updateProfile(userId, updateData);
-      res.status(200).json(updatedProfile);
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  };
-
-  deleteProfile = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) {
-        throw new AppError('Not authenticated', 401);
-      }
-
-      await this.userService.deleteProfile(userId);
-      res.status(204).send();
-    } catch (error) {
-      if (error instanceof AppError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    }
-  };
+  async deleteProfile(req: Request, res: Response) {
+    // TODO: Implement delete profile logic
+    res.status(200).json({ message: 'Delete profile endpoint' });
+  }
 } 
